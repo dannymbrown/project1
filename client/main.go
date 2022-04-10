@@ -53,16 +53,16 @@ func main() {
 			// y = ek’(x) ≡ (x + k’) mod 52 (where x is a letter in the plaintext and y is a letter in
 			// ciphertext transmitted to the Server)
 			//Y = (X + K) mod 26
-			message := []byte("abcdefg")
+			message := []byte("helloworld")
 			// a := (message)
-			for _, char := range message {
-				cipherChar := cipher.ToCipher(string(char))
+			for _, plaintext := range message {
+				encrypted := cipher.EncryptMessage(string(plaintext), k)
 				conn, err := net.Dial("tcp", "127.0.0.1:4400")
 				if err != nil {
 					log.Panicln(err)
 				}
-				log.Printf("\n%s:  %s\n%s:  %s\n", "Plaintext", string(char), "Ciphertext", string(cipherChar))
-				fmt.Fprintf(conn, cipherChar)
+				log.Printf("\n%s:  %s\n%s:  %s\n", "Plaintext", string(plaintext), "Ciphertext", encrypted)
+				fmt.Fprintf(conn, encrypted)
 				conn.Close()
 			}
 			return
