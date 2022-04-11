@@ -27,8 +27,6 @@ func keyToText(key int) string {
 	return string(keystore[key])
 }
 
-// fromKey returns number mapping for char.
-// if the key is invalid, "" is returned.
 func textToKey(text string) int {
 	for index, value := range keystore {
 		if text == string(value) {
@@ -37,14 +35,3 @@ func textToKey(text string) int {
 	}
 	return -1
 }
-
-// fromKey returns number mapping for char.
-// if the char is invalid, -1 is returned.
-// func toKey(char string) int {
-// 	for index, value := range keystore {
-// 		if char == string(value) {
-// 			return index
-// 		}
-// 	}
-// 	return -1
-// }
