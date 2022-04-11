@@ -11,26 +11,6 @@ import (
 	"github.com/dannymbrown/project1/cipher"
 )
 
-// public class Client {
-//     /**
-//      * Runs the client as an application.  First it displays a dialog
-//      * box asking for the IP address or hostname of a host running
-//      * the date server, then connects to it and displays the date that
-//      * it serves.
-//      */
-//     public static void main(String[] args) throws IOException {
-//         String serverAddress = JOptionPane.showInputDialog(
-//             "Enter IP Address of a machine that is\n" +
-//             "running the date service on port 9090:");
-//         Socket s = new Socket(serverAddress, 9090);
-//         BufferedReader input =
-//             new BufferedReader(new InputStreamReader(s.getInputStream()));
-//         String answer = input.readLine();
-//         JOptionPane.showMessageDialog(null, answer);
-//         System.exit(0);
-//     }
-// }
-
 func main() {
 	log.Println("Starting client...")
 	rand.Seed(time.Now().UnixNano())
@@ -47,14 +27,9 @@ func main() {
 			if err != nil {
 				log.Panicln(err)
 			}
-			log.Println("Sending message to server")
 			fmt.Fprintf(conn, strconv.Itoa(k))
 			conn.Close()
-			// y = ek’(x) ≡ (x + k’) mod 52 (where x is a letter in the plaintext and y is a letter in
-			// ciphertext transmitted to the Server)
-			//Y = (X + K) mod 26
 			message := []byte("helloworld")
-			// a := (message)
 			for _, plaintext := range message {
 				encrypted := cipher.EncryptMessage(string(plaintext), k)
 				conn, err := net.Dial("tcp", "127.0.0.1:4400")
